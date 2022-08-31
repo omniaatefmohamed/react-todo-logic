@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+import Todoitems from './components/Todoitems/Todoitems'
+import Additems  from './components/Additem/Additem';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends  Component {
+
+  state = {
+    items : [
+        {id: 1 , name : 'sara', age : 30},
+        {id: 2 , name : 'atef', age : 40}
+    ]
+  }
+  deleteitem = (id) => {
+    let items = this.state.items.filter(item => {
+        return item.id !== id
+    })
+    this.setState({items})
+  }
+
+  Additem = (item) => {
+    item.id = Math.random();
+    let items = this.state.items;
+    items.push(item);
+    this.setState({items});
+  }
+  render () {
+    return (
+      <div> 
+          <Todoitems items = {this.state.items} deleteitem = {this.deleteitem}/>
+          <Additems Additem = {this.Additem}/>
+      </div>
+    );
+  }
 }
+
 
 export default App;
